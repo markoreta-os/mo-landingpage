@@ -28,9 +28,9 @@
 
 **Code gates:** No implementation code until Phase 8. Tests must be RED before Phase 8 starts.
 
-**Parallel processing (DEFAULT):** When multiple stories exist, batch non-conflicting stories and run them in parallel using worktree-isolated Task subagents. Each agent follows the full SDLC path for its scope. Sequential is the fallback, not the norm. See [software-development-guidance.md](../coding-ai-config/software-development-guidance.md) § Parallel Backlog Processing.
+**Parallel processing (DEFAULT):** When multiple stories exist, batch non-conflicting stories and run them in parallel using worktree-isolated Task subagents. Each agent follows the full SDLC path for its scope. Sequential is the fallback, not the norm. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Parallel Backlog Processing.
 
-**Full phase details:** See [software-development-guidance.md](../coding-ai-config/software-development-guidance.md)
+**Full phase details:** See [software-development-guidance.md](.sdlc/software-development-guidance.md)
 **Agent personas:** See [AGENTS.md](./AGENTS.md)
 
 ---
@@ -136,6 +136,6 @@
 
 ## Reference
 
-- [software-development-guidance.md](../coding-ai-config/software-development-guidance.md) — Full phase details, gates, hooks, lessons learned
+- [software-development-guidance.md](.sdlc/software-development-guidance.md) — Full phase details, gates, hooks, lessons learned
 - [AGENTS.md](./AGENTS.md) — Complete agent guidance with examples
-- [templates/](../coding-ai-config/templates/) — File and config templates
+- [templates/](.sdlc/templates/) — File and config templates

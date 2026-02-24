@@ -6,7 +6,7 @@
 ## Required Reading
 
 1. Read [AGENTS.md](./AGENTS.md) completely
-2. Read [software-development-guidance.md](../coding-ai-config/software-development-guidance.md)
+2. Read [software-development-guidance.md](.sdlc/software-development-guidance.md)
 3. Check `config.yaml` for project-specific settings
 
 ## SDLC Process (REQUIRED)
@@ -18,7 +18,7 @@ When asked to spec, design, or build features:
 1. Start with Phase 1 (Business Analyst persona)
 2. Classify scope: trivial | small | medium | large | new_project
 3. Follow the phase path based on scope
-4. Adopt each agent persona from `~/projects/coding-ai-config/agents/phase-X-*.md`
+4. Adopt each agent persona from `.sdlc/agents/phase-X-*.md`
 
 ## Phase Paths
 
