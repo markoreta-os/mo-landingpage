@@ -12,6 +12,9 @@
 ## SDLC Process (REQUIRED)
 
 When asked to spec, design, or build features:
+
+**"spec" trigger:** Any prompt starting with "spec" MUST initiate the SDLC process starting at Phase 1 (Seed).
+
 1. Start with Phase 1 (Business Analyst persona)
 2. Classify scope: trivial | small | medium | large | new_project
 3. Follow the phase path based on scope

@@ -3,9 +3,13 @@
 > **DIRECTIVE:** This file contains critical guidance that MUST be followed for all work.
 > After context compaction, re-read this file and `.project` to restore phase context.
 
+---
+
 ## SDLC Process (REQUIRED)
 
 **Every request to spec, design, or build MUST follow the phased process. No exceptions.**
+
+**"spec" trigger:** Any prompt starting with "spec" MUST initiate the SDLC process starting at Phase 1 (Seed). Treat "spec ..." as equivalent to `/phase-1 ...`.
 
 1. Read the agent persona from `agents/phase-X-*.md` (via AGENTS.md)
 2. Adopt that persona's role and approach
@@ -24,16 +28,35 @@
 
 **Code gates:** No implementation code until Phase 8. Tests must be RED before Phase 8 starts.
 
+**Parallel processing (DEFAULT):** When multiple stories exist, batch non-conflicting stories and run them in parallel using worktree-isolated Task subagents. Each agent follows the full SDLC path for its scope. Sequential is the fallback, not the norm. See [software-development-guidance.md](../coding-ai-config/software-development-guidance.md) § Parallel Backlog Processing.
+
+**Full phase details:** See [software-development-guidance.md](../coding-ai-config/software-development-guidance.md)
+**Agent personas:** See [AGENTS.md](./AGENTS.md)
+
+---
+
 ## Model Policy (CRITICAL)
 
-| Phase | Model |
-|-------|-------|
-| 1 (Seed) | Opus (always) |
-| 2-7 | Opus (default), Sonnet ok for trivial/small |
-| 8 (Implementation) | Sonnet (default), Opus requires approval |
-| 8b (Code Review) | Opus (default) |
-| 9 (Refinement) | Opus (always) |
-| 10 (Operations) | Opus (always) |
+| Phase | Model | Effort |
+|-------|-------|--------|
+| 1 (Seed) | Opus (always) | high |
+| 2-5 | Sonnet (default), Opus for large/complex | medium |
+| 6 (Design) | Opus (default), Sonnet ok for small | high |
+| 7 (Test Design) | Sonnet (default) | medium |
+| 8 (Implementation) | Sonnet (default), Opus requires approval | medium |
+| 8b (Code Review) | Sonnet (default) | medium |
+| 9 (Refinement) | Opus (always) | high |
+| 10 (Operations) | Opus (always) | high |
+
+**Orchestrated phases (sub-agents run in parallel, orchestrator synthesizes):**
+- **2 (Research):** market-scout (Sonnet, low), library-miner (Sonnet, low), field-reporter (Sonnet, low)
+- **3 (Expansion):** pragmatist (Sonnet, medium), futurist (Sonnet, medium), optimizer (Sonnet, medium)
+- **4 (Analysis):** technical (Sonnet, medium), business (Sonnet, medium), risk (Sonnet, medium)
+- **8b (Code Review):** architect (Opus, high), skeptic (Sonnet, medium), simplifier (Sonnet, low), rule-reviewer (Sonnet, low), qa (Sonnet, low, frontend only), browser-tester (Sonnet, medium, frontend only)
+
+**Subagents:** Use Sonnet with `effort: low` for research and review subagents. Use Sonnet with `effort: medium` for complex subagent tasks.
+
+---
 
 ## Context Management (CRITICAL)
 
@@ -44,6 +67,8 @@
 - Commit after each logical unit in Phase 8
 - Never implement more than one function/endpoint per prompt
 
+**Compaction:** When compacting, always preserve: modified files list, current phase & status, test commands, key file paths, and pending decisions.
+
 **Context groups:** Seed | Research (2,3) | Evaluation (4,5) | Design (6,[6b,6c]) | Test (7) | Implementation (8,8b) | Polish ([9,10])
 
 **After `/clear` — "continue", "next step", or `/next`:**
@@ -51,14 +76,66 @@
 2. Read the agent persona for that phase
 3. Begin or resume the phase — no re-explanation needed
 
-## Asana
+---
 
-Project: `sdlc-<directory-name>` | Sections: Backlog → Ready → In Progress → Done
+## Asana Integration
+
+**Project naming:** `sdlc-<directory-name>`
+
+**Sections:** Backlog → Ready → In Progress → Done
+
+**MCP Tools:** `asana_search_tasks`, `asana_create_task`, `asana_update_task`, `asana_get_projects`, `asana_get_tasks`
+
+**Section moves:**
+```bash
+~/projects/coding-ai-config/scripts/asana-api.sh move <task_gid> <section_gid>
+```
+
+---
+
+## Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `/new-project` | Full project setup |
+| `/phase-1` | Concept & Seed |
+| `/next` | Advance to next phase (auto/confirm/gate) |
+| `/sync-backlog` | Asana → backlog.md |
+| `/start-story` | Begin story work |
+| `/complete-story` | Mark story done |
+| `/council` | LLM Council review |
+| `/phase-6c` | UX Review |
+| `/phase-10` | Operational Resilience |
+
+---
 
 ## Git
 
-Commit format: `phase <N>: <description>`
+**Commit format:** `phase <N>: <description>`
+
+**Feature updates:** `phase <N>: [feature-name] <description>`
+
+---
+
+## Tech Stack (Default)
+
+- **Backend:** Python 3.12+, FastAPI, PostgreSQL, SQLAlchemy 2.0, Alembic, Pydantic, PyJWT, pwdlib, pytest
+- **Frontend:** React 19, Vite, TypeScript, Tailwind v4, TanStack Query v5, Zustand v5, Zod v4
+- **Infra:** Docker, Docker Compose
+
+---
+
+## Writing Rules
+
+- Bullets over prose
+- Tables for structured data
+- No filler words
+- Max 3 nesting levels
+
+---
 
 ## Reference
 
-See [AGENTS.md](./AGENTS.md) and linked [software-development-guidance.md](../coding-ai-config/software-development-guidance.md)
+- [software-development-guidance.md](../coding-ai-config/software-development-guidance.md) — Full phase details, gates, hooks, lessons learned
+- [AGENTS.md](./AGENTS.md) — Complete agent guidance with examples
+- [templates/](../coding-ai-config/templates/) — File and config templates
