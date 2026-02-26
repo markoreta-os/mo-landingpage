@@ -107,13 +107,23 @@
 |-------|---------|
 | `/new-project` | Full project setup |
 | `/phase-1` | Concept & Seed |
+| `/phase-2` | Research Coordinator |
+| `/phase-3` | Expansion Coordinator |
+| `/phase-4` | Analysis Coordinator |
+| `/phase-5` | Pragmatic Executive |
+| `/phase-6` | Systems Architect |
+| `/phase-6b` | Security Reviewer |
+| `/phase-6c` | UX Review |
+| `/phase-7` | Test Design |
+| `/phase-8` | Implementation |
+| `/phase-8b` | Code Review |
+| `/phase-9` | Refinement |
+| `/phase-10` | Operational Resilience |
 | `/next` | Advance to next phase (auto/confirm/gate) |
 | `/sync-backlog` | Asana → backlog.md |
 | `/start-story` | Begin story work |
 | `/complete-story` | Mark story done |
 | `/council` | LLM Council review |
-| `/phase-6c` | UX Review |
-| `/phase-10` | Operational Resilience |
 
 ---
 
