@@ -9,7 +9,7 @@
 
 **Every request to spec, design, or build MUST follow the phased process. No exceptions.**
 
-**"spec" trigger:** Any prompt starting with "spec" MUST initiate the SDLC process starting at Phase 1 (Seed). Treat "spec ..." as equivalent to `/phase-1 ...`.
+**"spec" trigger:** Any prompt starting with "spec" MUST initiate the SDLC process starting at Phase 1 (Seed). Treat "spec ..." as equivalent to `/phase-1 ...`. When `multi_worker: true`, spec also auto-runs `/start-story` after Phase 1 (claim + worktree + Story Status row) — one command spins up a full workstream.
 
 1. Read the agent persona from `agents/phase-X-*.md` (via AGENTS.md)
 2. Adopt that persona's role and approach

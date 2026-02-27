@@ -10,7 +10,7 @@
 
 **Every request to spec, design, or build MUST follow the phased process. No exceptions.**
 
-**"spec" trigger:** Any prompt starting with "spec" MUST initiate the SDLC process starting at Phase 1 (Seed).
+**"spec" trigger:** Any prompt starting with "spec" MUST initiate the SDLC process starting at Phase 1 (Seed). When `multi_worker: true`, spec also auto-runs the start-story protocol after Phase 1 (claim + worktree) — one command spins up a full workstream.
 
 1. Start with Phase 1 (Business Analyst persona)
 2. Classify scope: trivial | small | medium | large | new_project
