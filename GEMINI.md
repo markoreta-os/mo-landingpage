@@ -31,6 +31,13 @@
 
 **Code gates:** No implementation code until Phase 8. Tests must be RED before Phase 8 starts.
 
+**Parallel processing (DEFAULT):** When multiple stories exist, batch non-conflicting stories and run them in parallel. Sequential is the fallback, not the norm. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Parallel Backlog Processing.
+
+**Multi-worker mode:** When `orchestration.multi_worker: true`, multiple workers (humans, AI sessions) advance different stories simultaneously. Each story gets a worktree for all phases. Use `next STORY-ID` to advance a specific story, `next --claim` to pick up the next unclaimed story. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Multi-Worker Protocol.
+
+**Full phase details:** See [software-development-guidance.md](.sdlc/software-development-guidance.md)
+**Agent personas:** See [AGENTS.md](./AGENTS.md)
+
 ---
 
 ## Context Management (CRITICAL)
