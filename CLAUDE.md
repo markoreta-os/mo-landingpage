@@ -61,7 +61,7 @@
 **Model Enforcement (HARD GATE — no exceptions):**
 - Before starting ANY phase work, check: does your current model match the phase's required model?
 - **Opus doing Sonnet work (e.g., Phase 8):** You MUST NOT write implementation code directly. Delegate ALL work to Task subagents with \`model: "sonnet"\`. The Opus agent orchestrates only — dispatches tasks, verifies results, commits code. This prevents ~15x cost overrun.
-- **Sonnet doing Opus work (e.g., Phase 1, 9, 10):** STOP. Inform the user: "Phase X requires Opus. Please switch models." Do not attempt the work at reduced quality.
+- **Sonnet doing Opus work (e.g., Phase 1, 9, 10):** Delegate ALL work to a Task subagent with \`model: "opus"\`. Sonnet orchestrates only — dispatches, verifies, commits. The user should NEVER be asked to manually switch models.
 - **Orchestrated phases (2, 3, 4, 8b):** The orchestrator MUST specify \`model: "sonnet"\` (or \`model: "opus"\` for 8b-architect) on every Task subagent launch. Never inherit the orchestrator's model.
 - **config.yaml override:** If \`models.opus_allowed: true\`, Opus may do Sonnet-default phases directly. This is the ONLY exception.
 - Each agent persona file contains a Model Gate section — read it before starting work.
