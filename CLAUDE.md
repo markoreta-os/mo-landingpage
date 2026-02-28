@@ -35,9 +35,18 @@ Each agent persona has an `advance` field. After completing a phase, you MUST ch
 |---------|----------|--------|
 | **gate** | **STOP.** Show deliverables. Wait for explicit user approval before doing anything else. Do NOT start the next phase. | 1, 8 |
 | **confirm** | **STOP.** Show summary. Ask "Proceed to Phase X?" Wait for yes/no. | 2, 3, 4, 5, 6, 7, 9, 10 |
-| **auto** | Proceed immediately, no user input needed. | 6b, 6c, 8b |
+| **auto** | Proceed to the next **phase** immediately, no user input needed. | 6b, 6c, 8b |
 
-**You must STOP and wait after every phase unless the advance category is `auto`.** Never chain phases together. Never auto-claim the next story after completing a phase. The user decides when to continue.
+**You must STOP and wait after every phase unless the advance category is `auto`.** Never chain phases together. The user decides when to continue.
+
+**Story switching (CRITICAL — NEVER auto-switch stories, even with auto-accept):**
+`auto` advance means auto-advance to the next **phase within the same story**. It NEVER means switch to a different story/ticket. When a story is complete (final phase reached, Asana/backlog updated):
+1. Output the completion summary
+2. **STOP. END YOUR RESPONSE. Do NOT claim, start, or begin the next story.**
+3. The "Next:" suggestions in completion messages are for the **user to read and type** — they are NOT instructions for you to execute
+4. Wait for the user to explicitly tell you which story to work on next
+5. This rule applies even if there are Ready stories in the backlog — you do NOT pick them up automatically
+6. This rule applies even if auto-accept is enabled — auto-accept controls phase transitions, NEVER story transitions
 
 **Parallel processing (DEFAULT):** When multiple stories exist, batch non-conflicting stories and run them in parallel using worktree-isolated Task subagents. Each agent follows the full SDLC path for its scope. Sequential is the fallback, not the norm. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Parallel Backlog Processing.
 
