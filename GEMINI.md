@@ -18,7 +18,7 @@
 4. Adopt each agent persona from `.sdlc/agents/phase-X-*.md`
 5. Produce the deliverables for that phase
 6. Update `.project`, `backlog.md`, and Asana
-7. Hand off to next phase based on scope
+7. **STOP after each phase** — check the advance category before continuing (see below)
 
 **Phase paths:**
 
@@ -30,6 +30,17 @@
 | Large/New | 1 → 2 → 3 → 4 → 5 → 6 → [6b, 6c] → 7 → 8 → 8b → [9, 10] → Done |
 
 **Code gates:** No implementation code until Phase 8. Tests must be RED before Phase 8 starts.
+
+**Phase boundary behavior (CRITICAL — do NOT auto-advance):**
+Each agent persona has an `advance` field. After completing a phase, you MUST check it:
+
+| Advance | Behavior | Phases |
+|---------|----------|--------|
+| **gate** | **STOP.** Show deliverables. Wait for explicit user approval before doing anything else. Do NOT start the next phase. | 1, 8 |
+| **confirm** | **STOP.** Show summary. Ask "Proceed to Phase X?" Wait for yes/no. | 2, 3, 4, 5, 6, 7, 9, 10 |
+| **auto** | Proceed immediately, no user input needed. | 6b, 6c, 8b |
+
+**You must STOP and wait after every phase unless the advance category is `auto`.** Never chain phases together. Never auto-claim the next story after completing a phase. The user decides when to continue.
 
 **Parallel processing (DEFAULT):** When multiple stories exist, batch non-conflicting stories and run them in parallel. Sequential is the fallback, not the norm. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Parallel Backlog Processing.
 
