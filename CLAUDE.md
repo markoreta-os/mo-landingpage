@@ -32,6 +32,8 @@
 
 **Multi-worker mode:** When `orchestration.multi_worker: true`, multiple workers (humans, AI sessions) advance different stories simultaneously. Each story gets a worktree for all phases. Use `/next STORY-ID` to advance a specific story, `/next --claim` to pick up the next unclaimed story. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Multi-Worker Protocol.
 
+**Deliverable paths (multi-worker — ALL phases):** When working on a story in multi-worker mode, ALL deliverables (\`seed.md\`, \`test-design.md\`, \`feature-spec.md\`, \`architecture.md\`, etc.) MUST be written to the **story's working directory** (worktree root), NEVER the main project root. Writing to the project root overwrites other stories' work. If you're in a worktree, write files relative to your current directory.
+
 **Full phase details:** See [software-development-guidance.md](.sdlc/software-development-guidance.md)
 **Agent personas:** See [AGENTS.md](./AGENTS.md)
 
@@ -141,6 +143,7 @@
 
 - **Backend:** Python 3.12+, FastAPI, PostgreSQL, SQLAlchemy 2.0, Alembic, Pydantic, PyJWT, pwdlib, pytest
 - **Frontend:** React 19, Vite, TypeScript, Tailwind v4, TanStack Query v5, Zustand v5, Zod v4
+- **Frontend testing:** Playwright (all UI verification). **NEVER use curl/HTTP to check frontend behavior** — curl tests the API, not what users see. If it's user-facing, use Playwright or a browser tool.
 - **Infra:** Docker, Docker Compose
 
 ---
