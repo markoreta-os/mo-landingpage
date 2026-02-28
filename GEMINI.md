@@ -90,7 +90,54 @@ All phases and orchestration tasks are available as skills. Use `activate_skill`
 | `phase-9` | Distinguished Engineer |
 | `phase-10` | Operational Resilience |
 | `next` | Advance to next phase |
+| `sync-backlog` | Asana → backlog.md |
+| `start-story` | Begin story work (claim + worktree) |
+| `complete-story` | Mark story done (merge + cleanup) |
 | `council` | Invoke LLM Council |
+
+---
+
+## Model Policy (CRITICAL)
+
+| Phase | Model | Effort |
+|-------|-------|--------|
+| 1 (Seed) | Pro (always) | high |
+| 2-5 | Flash (default), Pro for large/complex | medium |
+| 6 (Design) | Pro (default), Flash ok for small | high |
+| 7 (Test Design) | Flash (default) | medium |
+| 8 (Implementation) | Flash (default) | medium |
+| 8b (Code Review) | Flash (default) | medium |
+| 9 (Refinement) | Pro (always) | high |
+| 10 (Operations) | Pro (always) | high |
+
+**Model Enforcement (HARD GATE — no exceptions):**
+- Before starting ANY phase, check: does your current model match the phase's required model?
+- **Pro doing Flash work (e.g., Phase 8):** Delegate ALL work to Flash. Pro orchestrates only.
+- **Flash doing Pro work (e.g., Phase 1, 9, 10):** Delegate ALL work to a Pro sub-agent. Never ask the user to switch models.
+
+---
+
+## Asana Integration
+
+**Project naming:** `sdlc-<directory-name>`
+
+**Sections:** Backlog → Ready → In Progress → Done
+
+**Commands:**
+```bash
+~/projects/coding-ai-config/scripts/asana-api.sh move <task_gid> <section_gid>
+~/projects/coding-ai-config/scripts/asana-api.sh complete <task_gid>
+~/projects/coding-ai-config/scripts/asana-api.sh find-project "sdlc-<project-name>"
+~/projects/coding-ai-config/scripts/asana-api.sh find-section <project_gid> "In Progress"
+```
+
+---
+
+## Git
+
+**Commit format:** `phase <N>: <description>`
+
+**Feature updates:** `phase <N>: [feature-name] <description>`
 
 ---
 
@@ -100,6 +147,15 @@ All phases and orchestration tasks are available as skills. Use `activate_skill`
 - **Frontend:** React 19, Vite, TypeScript, Tailwind v4, TanStack Query v5, Zustand v5, Zod v4
 - **Frontend testing:** Playwright (all UI verification). **NEVER use curl/HTTP to check frontend behavior** — curl tests the API, not what users see. If it's user-facing, use Playwright or a browser tool.
 - **Infra:** Docker, Docker Compose
+
+---
+
+## Writing Rules
+
+- Bullets over prose
+- Tables for structured data
+- No filler words
+- Max 3 nesting levels
 
 ---
 
