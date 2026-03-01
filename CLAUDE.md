@@ -129,6 +129,7 @@ Each agent persona has an `advance` field. After completing a phase, you MUST ch
 
 | Skill | Purpose |
 |-------|---------|
+| `/spec` | SDLC entry point — start Phase 1 for new work |
 | `/new-project` | Full project setup |
 | `/phase-1` | Concept & Seed |
 | `/phase-2` | Research Coordinator |

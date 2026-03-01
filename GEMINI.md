@@ -85,6 +85,7 @@ All phases and orchestration tasks are available as skills. Use `activate_skill`
 
 | Skill | Phase / Purpose |
 |-------|-----------------|
+| `spec` | SDLC entry point — start Phase 1 for new work |
 | `phase-1` | Concept & Seed |
 | `phase-2` | Research Coordinator |
 | `phase-3` | Expansion Coordinator |
