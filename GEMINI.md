@@ -55,14 +55,28 @@ Each agent persona has an `advance` field. After completing a phase, you MUST ch
 
 **Multi-worker mode:** When `orchestration.multi_worker: true`, multiple workers (humans, AI sessions) advance different stories simultaneously. Each story gets a worktree for all phases. Use `next STORY-ID` to advance a specific story, `next --claim` to pick up the next unclaimed story. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Multi-Worker Protocol.
 
-**Deliverable paths (multi-worker — ALL phases):** When working on a story in multi-worker mode, ALL deliverables (\`seed.md\`, \`test-design.md\`, \`feature-spec.md\`, \`architecture.md\`, etc.) MUST be written to the **story's working directory** (worktree root), NEVER the main project root. Writing to the project root overwrites other stories' work. If you're in a worktree, write files relative to your current directory.
-
 **Full phase details:** See [software-development-guidance.md](.sdlc/software-development-guidance.md)
 **Agent personas:** See [AGENTS.md](./AGENTS.md)
 
 ---
 
+## Deliverable Location (REQUIRED)
+
+**All phase deliverables MUST be written to:** \`features/<story-folder>/\`
+
+**Folder naming:** \`features/story-XXX-kebab-case-slug/\` where XXX is the story number and slug is derived from the Asana task name.
+
+Example: \`features/story-014-str-automations/seed.md\`
+
+**NEVER write deliverables to the project root or a \`docs/\` directory.** The \`features/\` directory is the single source of truth for all SDLC artifacts.
+
+**Multi-worker mode:** When using worktrees, deliverables still go in \`features/<story-folder>/\` within the worktree.
+
+---
+
 ## Phase Deliverables (REQUIRED — every phase MUST produce its file)
+
+All files below are written to \`features/<story-folder>/\`:
 
 | Phase | Output File(s) | Scope |
 |-------|---------------|-------|
@@ -82,7 +96,7 @@ Each agent persona has an `advance` field. After completing a phase, you MUST ch
 
 **Every phase MUST also update:** `.project`, `backlog.md`, `development-tasks.md`, Asana task
 
-**A phase is NOT complete until its output file exists and tracking docs are updated.**
+**A phase is NOT complete until its output file exists in \`features/<story-folder>/\` and tracking docs are updated.**
 
 ---
 
