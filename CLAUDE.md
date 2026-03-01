@@ -59,6 +59,30 @@ Each agent persona has an `advance` field. After completing a phase, you MUST ch
 
 ---
 
+## Phase Deliverables (REQUIRED — every phase MUST produce its file)
+
+| Phase | Output File(s) | Scope |
+|-------|---------------|-------|
+| 1 | `seed.md` | All |
+| 2 | `research.md` | Large/New |
+| 3 | `expansion.md` | Large/New |
+| 4 | `analysis.md` | Medium+ |
+| 5 | `selection.md` | Large/New |
+| 6 | `feature-spec.md` (Medium) OR `specification.md`, `architecture.md`, `api-design.md`, `database-schema.md`, `implementation-plan.md` (Large/New) | Medium+ |
+| 6b | `security-review.md` | Medium+ |
+| 6c | `ux-review.md` | Medium+ |
+| 7 | `test-design.md` + runnable test code in `tests/`/`e2e/` (RED state) | All |
+| 8 | Implementation code (all tests GREEN) | All |
+| 8b | `code-review.md` | Medium+ |
+| 9 | `refinement-report.md` | Large/New |
+| 10 | `site-reliability.md` | Large/New |
+
+**Every phase MUST also update:** `.project`, `backlog.md`, `development-tasks.md`, Asana task
+
+**A phase is NOT complete until its output file exists and tracking docs are updated.**
+
+---
+
 ## Model Policy (CRITICAL)
 
 | Phase | Model | Effort |
