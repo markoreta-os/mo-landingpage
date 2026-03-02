@@ -159,6 +159,7 @@ All files below are written to \`features/<story-folder>/\`:
 **Script commands:**
 ```bash
 ~/projects/coding-ai-config/scripts/asana-api.sh get <task_gid>                    # Read task details (name, notes, assignee, status)
+~/projects/coding-ai-config/scripts/asana-api.sh update-name <task_gid> <name>      # Update task name
 ~/projects/coding-ai-config/scripts/asana-api.sh update-notes <task_gid> <notes>    # Update task notes/description
 ~/projects/coding-ai-config/scripts/asana-api.sh move <task_gid> <section_gid>      # Move task to section
 ~/projects/coding-ai-config/scripts/asana-api.sh complete <task_gid>                # Mark task completed
