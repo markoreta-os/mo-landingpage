@@ -156,10 +156,18 @@ All files below are written to \`features/<story-folder>/\`:
 
 **MCP Tools:** `asana_search_tasks`, `asana_create_task`, `asana_update_task`, `asana_get_projects`, `asana_get_tasks`
 
-**Section moves:**
+**Script commands:**
 ```bash
-~/projects/coding-ai-config/scripts/asana-api.sh move <task_gid> <section_gid>
+~/projects/coding-ai-config/scripts/asana-api.sh get <task_gid>                    # Read task details (name, notes, assignee, status)
+~/projects/coding-ai-config/scripts/asana-api.sh update-notes <task_gid> <notes>    # Update task notes/description
+~/projects/coding-ai-config/scripts/asana-api.sh move <task_gid> <section_gid>      # Move task to section
+~/projects/coding-ai-config/scripts/asana-api.sh complete <task_gid>                # Mark task completed
+~/projects/coding-ai-config/scripts/asana-api.sh create <project_gid> <name> [notes] # Create task
+~/projects/coding-ai-config/scripts/asana-api.sh find-project <name>                # Find project GID by name
+~/projects/coding-ai-config/scripts/asana-api.sh find-section <project_gid> <name>  # Find section GID by name
 ```
+
+**Phase progress tracking:** Every phase transition MUST update the Asana task notes with an SDLC Progress block showing completed/current/remaining phases. See \`/next\` skill § Phase Progress Format.
 
 ---
 
