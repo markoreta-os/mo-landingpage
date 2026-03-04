@@ -212,6 +212,7 @@ All files below are written to \`features/<story-folder>/\`:
 - **Backend:** Python 3.12+, FastAPI, PostgreSQL, SQLAlchemy 2.0, Alembic, Pydantic, PyJWT, pwdlib, pytest
 - **Frontend:** React 19, Vite, TypeScript, Tailwind v4, TanStack Query v5, Zustand v5, Zod v4
 - **Frontend testing:** Playwright (all UI verification). **NEVER use curl/HTTP to check frontend behavior** — curl tests the API, not what users see. If it's user-facing, use Playwright or a browser tool. **Always run headless** (\`headless: true\` in playwright.config.ts). Never use \`--headed\`, \`--debug\`, or \`--ui\` flags.
+- **Test timeouts:** All test runners MUST enforce a 15 s per-test timeout. pytest: \`timeout = 15\` in pyproject.toml (requires \`pytest-timeout\`). Playwright: \`timeout: 15000\` in playwright.config.ts. Vitest: \`testTimeout: 15000\` in vitest.config.ts.
 - **Infra:** Docker, Docker Compose
 
 ---
