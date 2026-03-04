@@ -169,7 +169,7 @@ All phases and orchestration tasks are available as skills. Use `activate_skill`
 
 **Project naming:** `sdlc-<directory-name>`
 
-**Sections:** Backlog → Ready → In Progress → Done
+**Sections:** Backlog → Ready → In Progress → Done | Do Not Do (ignored by agents)
 
 **Commands:**
 ```bash

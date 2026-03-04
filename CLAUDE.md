@@ -152,7 +152,7 @@ All files below are written to \`features/<story-folder>/\`:
 
 **Project naming:** `sdlc-<directory-name>`
 
-**Sections:** Backlog → Ready → In Progress → Done
+**Sections:** Backlog → Ready → In Progress → Done | Do Not Do (ignored by agents)
 
 **MCP Tools:** `asana_search_tasks`, `asana_create_task`, `asana_update_task`, `asana_get_projects`, `asana_get_tasks`
 
