@@ -94,7 +94,7 @@ All files below are written to \`features/<story-folder>/\`:
 | 9 | `refinement-report.md` | Large/New |
 | 10 | `site-reliability.md` | Large/New |
 
-**Every phase MUST also update:** `.project`, `backlog.md`, `development-tasks.md`, Asana task
+**Every phase MUST also update:** `.project`, `backlog.md`, `development-tasks.md`, Asana task (add comment summarizing work)
 
 **A phase is NOT complete until its output file exists in \`features/<story-folder>/\` and tracking docs are updated.**
 
@@ -176,6 +176,7 @@ All phases and orchestration tasks are available as skills. Use `activate_skill`
 ~/projects/coding-ai-config/scripts/asana-api.sh get <task_gid>                    # Read task details (name, notes, assignee, status)
 ~/projects/coding-ai-config/scripts/asana-api.sh update-name <task_gid> <name>      # Update task name
 ~/projects/coding-ai-config/scripts/asana-api.sh update-notes <task_gid> <notes>    # Update task notes/description
+~/projects/coding-ai-config/scripts/asana-api.sh comment <task_gid> <text>          # Add comment to task
 ~/projects/coding-ai-config/scripts/asana-api.sh move <task_gid> <section_gid>      # Move task to section
 ~/projects/coding-ai-config/scripts/asana-api.sh complete <task_gid>                # Mark task completed
 ~/projects/coding-ai-config/scripts/asana-api.sh create <project_gid> <name> [notes] # Create task
