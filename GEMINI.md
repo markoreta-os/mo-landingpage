@@ -171,17 +171,17 @@ All phases and orchestration tasks are available as skills. Use `activate_skill`
 
 **Sections:** Backlog → Ready → In Progress → Done | Do Not Do (ignored by agents)
 
-**Commands:**
+**Commands (wrapper required):**
 ```bash
-~/projects/coding-ai-config/scripts/asana-api.sh get <task_gid>                    # Read task details (name, notes, assignee, status)
-~/projects/coding-ai-config/scripts/asana-api.sh update-name <task_gid> <name>      # Update task name
-~/projects/coding-ai-config/scripts/asana-api.sh update-notes <task_gid> <notes>    # Update task notes/description
-~/projects/coding-ai-config/scripts/asana-api.sh comment <task_gid> <text>          # Add comment to task
-~/projects/coding-ai-config/scripts/asana-api.sh move <task_gid> <section_gid>      # Move task to section
-~/projects/coding-ai-config/scripts/asana-api.sh complete <task_gid>                # Mark task completed
-~/projects/coding-ai-config/scripts/asana-api.sh create <project_gid> <name> [notes] # Create task
-~/projects/coding-ai-config/scripts/asana-api.sh find-project <name>                # Find project GID by name
-~/projects/coding-ai-config/scripts/asana-api.sh find-section <project_gid> <name>  # Find section GID by name
+cai asana-api.sh get <task_gid>                    # Read task details (name, notes, assignee, status)
+cai asana-api.sh update-name <task_gid> <name>      # Update task name
+cai asana-api.sh update-notes <task_gid> <notes>    # Update task notes/description
+cai asana-api.sh comment <task_gid> <text>          # Add comment to task
+cai asana-api.sh move <task_gid> <section_gid>      # Move task to section
+cai asana-api.sh complete <task_gid>                # Mark task completed
+cai asana-api.sh create <project_gid> <name> [notes] # Create task
+cai asana-api.sh find-project <name>                # Find project GID by name
+cai asana-api.sh find-section <project_gid> <name>  # Find section GID by name
 ```
 
 **Phase progress tracking:** Every phase transition MUST update the Asana task notes with an SDLC Progress block showing completed/current/remaining phases. See \`/next\` skill § Phase Progress Format.
@@ -193,6 +193,8 @@ All phases and orchestration tasks are available as skills. Use `activate_skill`
 **Commit format:** `phase <N>: <description>`
 
 **Feature updates:** `phase <N>: [feature-name] <description>`
+
+**Check-in command (REQUIRED):** `gci-safe "<commit message>"`
 
 ---
 
