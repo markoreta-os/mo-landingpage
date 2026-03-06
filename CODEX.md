@@ -16,7 +16,12 @@
 ## Execution Notes For Codex
 
 - Codex does not rely on slash commands; execute the same workflow through plain-language directives.
+- Treat `spec ...` and `/spec ...` as equivalent.
+- Treat `next STORY-XXX` and `/next STORY-XXX` as equivalent.
 - Use `skills/*/SKILL.md` as procedural references when a phase or workflow is requested.
+- For platform-specific behavior, prefer:
+  - `.sdlc/skills/next/codex.md`
+  - `.sdlc/skills/spec/codex.md`
 - For phase advancement, follow the same `advance` semantics (`gate`, `confirm`, `auto`) from agent personas.
 - Respect model-tier gates in `AGENTS.md` and `config.yaml`.
 
