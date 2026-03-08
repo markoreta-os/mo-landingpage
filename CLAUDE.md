@@ -152,7 +152,15 @@ All files below are written to \`features/<story-folder>/\`:
 
 **Project naming:** `sdlc-<directory-name>`
 
-**Sections:** Backlog → Ready → In Progress → Done | Do Not Do (ignored by agents)
+**Sections:** Backlog → Ready → In Progress → E2E Gate → Done | Do Not Do (ignored by agents)
+
+**Epic hierarchy (parent/subtask):**
+- **Epic parent task:** `EPIC: <name>` — top-level task in Asana
+- **Story subtasks:** `[P1] STORY-XXX: <name>` — subtasks of the epic, prefixed with delivery phase
+- **E2E gate stories:** `[E2E] STORY-XXX: <name>` — integration test stories between delivery phases
+- Non-epic stories use the standard `STORY-XXX: <name>` format (no prefix, no parent)
+- Epic stories completing their SDLC move to **E2E Gate** section (not Done) until the E2E gate story passes
+- After E2E gate passes → batch-move stories to Done
 
 **MCP Tools:** `asana_search_tasks`, `asana_create_task`, `asana_update_task`, `asana_get_projects`, `asana_get_tasks`
 
@@ -160,14 +168,19 @@ All files below are written to \`features/<story-folder>/\`:
 ```bash
 cai asana-api.sh get <task_gid>                    # Read task details (name, notes, assignee, status)
 cai asana-api.sh update-name <task_gid> <name>      # Update task name
-cai asana-api.sh update-notes <task_gid> <notes>    # Update task notes/description
-cai asana-api.sh comment <task_gid> <text>          # Add comment to task
+cai asana-api.sh update-notes <task_gid> "$(cat /tmp/asana-notes.txt)"  # Write to temp file first
+cai asana-api.sh comment <task_gid> "$(cat /tmp/asana-comment.txt)"    # Write to temp file first
 cai asana-api.sh move <task_gid> <section_gid>      # Move task to section
 cai asana-api.sh complete <task_gid>                # Mark task completed
 cai asana-api.sh create <project_gid> <name> [notes] # Create task
 cai asana-api.sh find-project <name>                # Find project GID by name
 cai asana-api.sh find-section <project_gid> <name>  # Find section GID by name
+cai asana-api.sh create-subtask <parent_gid> <name> [notes] # Create story as subtask of epic
+cai asana-api.sh subtasks <task_gid>                  # List subtasks of a task
+cai asana-api.sh set-parent <task_gid> <parent_gid>   # Make a task a subtask of another
 ```
+
+**Long text arguments (REQUIRED):** For \`update-notes\`, \`comment\`, and \`create\` commands with multi-line or special-character text, ALWAYS write the text to a temp file first, then pass via \`$(cat ...)\`. Example: \`cat > /tmp/asana-notes.txt << 'NOTES' ... NOTES\` then \`cai asana-api.sh update-notes <gid> "$(cat /tmp/asana-notes.txt)"\`
 
 **Phase progress tracking:** Every phase transition MUST update the Asana task notes with an SDLC Progress block showing completed/current/remaining phases. See \`/next\` skill § Phase Progress Format.
 
