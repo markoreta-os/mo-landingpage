@@ -27,6 +27,7 @@
 | Large/New | 1 → 2 → 3 → 4 → 5 → 6 → [6b, 6c, 6d] → 7 → 8 → 8b → [9, 10] → Done |
 
 **Code gates:** No implementation code until Phase 8. Tests must be RED before Phase 8 starts.
+**Test integrity:** When tests fail in Phase 8, fix the code — not the tests. Tests may only be modified if they don't match the Phase 6/7 spec (document the reason, which spec it conflicted with, and what was changed).
 
 **Phase boundary behavior (CRITICAL — do NOT auto-advance):**
 Each agent persona has an `advance` field. After completing a phase, you MUST check it:
