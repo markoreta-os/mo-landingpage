@@ -18,6 +18,7 @@
 - Codex does not rely on slash commands; execute the same workflow through plain-language directives.
 - Treat `spec ...` and `/spec ...` as equivalent.
 - Treat `next STORY-XXX` and `/next STORY-XXX` as equivalent.
+- Codex MCP configuration lives in `~/.codex/config.toml` and should be managed via `codex mcp add ...` / `codex mcp list` (not `~/.codex/settings.json`).
 - Use `skills/*/SKILL.md` as procedural references when a phase or workflow is requested.
 - For platform-specific behavior, prefer:
   - `.sdlc/skills/next/codex.md`

@@ -23,8 +23,8 @@
 |-------|------|
 | Trivial | → 8 → Done |
 | Small | 1 → 7 → 8 → Done |
-| Medium | 1 → 4 → 6 → [6b, 6c] → 7 → 8 → 8b → Done |
-| Large/New | 1 → 2 → 3 → 4 → 5 → 6 → [6b, 6c] → 7 → 8 → 8b → [9, 10] → Done |
+| Medium | 1 → 4 → 6 → [6b, 6c, 6d] → 7 → 8 → 8b → Done |
+| Large/New | 1 → 2 → 3 → 4 → 5 → 6 → [6b, 6c, 6d] → 7 → 8 → 8b → [9, 10] → Done |
 
 **Code gates:** No implementation code until Phase 8. Tests must be RED before Phase 8 starts.
 
@@ -139,7 +139,7 @@ All files below are written to \`features/<story-folder>/\`:
 
 **Compaction:** When compacting, always preserve: modified files list, current phase & status, test commands, key file paths, and pending decisions.
 
-**Context groups:** Seed | Research (2,3) | Evaluation (4,5) | Design (6,[6b,6c]) | Test (7) | Implementation (8,8b) | Polish ([9,10])
+**Context groups:** Seed | Research (2,3) | Evaluation (4,5) | Design (6,[6b,6c,6d]) | Test (7) | Implementation (8,8b) | Polish ([9,10])
 
 **After `/clear` — "continue", "next step", or `/next`:**
 1. Read `.project` → Phase Routing section to find current phase and status
