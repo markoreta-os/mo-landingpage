@@ -7,74 +7,38 @@
 
 ## SDLC Process (REQUIRED)
 
-**Every request to spec, design, or build MUST follow the phased process. No exceptions.**
+See [AGENTS.md](./AGENTS.md) for: phase paths, advance categories, data mutation policy, skills, tech stack, writing rules, and git conventions.
 
-**"spec" trigger:** Any prompt starting with "spec" MUST initiate the SDLC process starting at Phase 1 (Seed). Treat "spec ..." as equivalent to `/phase-1 ...`. When `multi_worker: true`, spec also auto-runs `/start-story` after Phase 1 (claim + worktree + Story Status row) — one command spins up a full workstream.
-
-1. Read the agent persona from `agents/phase-X-*.md` (via AGENTS.md)
-2. Adopt that persona's role and approach
-3. Produce the deliverables for that phase
-4. Update `.project`, `backlog.md`, and Asana
-5. Hand off to next phase based on scope
-
-**Phase paths:**
-
-| Scope | Path |
-|-------|------|
-| Trivial | → 8 → Done |
-| Small | 1 → 7 → 8 → Done |
-| Medium | 1 → 4 → 6 → [6b, 6c, 6d] → 7 → 8 → 8b → Done |
-| Large/New | 1 → 2 → 3 → 4 → 5 → 6 → [6b, 6c, 6d] → 7 → 8 → 8b → [9, 10] → Done |
-
-**Code gates:** No implementation code until Phase 8. Tests must be RED before Phase 8 starts.
-**Test integrity:** When tests fail in Phase 8, fix the code — not the tests. Tests may only be modified if they don't match the Phase 6/7 spec (document the reason, which spec it conflicted with, and what was changed).
-
-**Phase boundary behavior (CRITICAL — do NOT auto-advance):**
-Each agent persona has an `advance` field. After completing a phase, you MUST check it:
-
-| Advance | Behavior | Phases |
-|---------|----------|--------|
-| **gate** | **STOP.** Show deliverables. Wait for explicit user approval before doing anything else. Do NOT start the next phase. | 1, 8 |
-| **confirm** | **STOP.** Show summary. Ask "Proceed to Phase X?" Wait for yes/no. | 2, 3, 4, 5, 6, 7, 9, 10 |
-| **auto** | Proceed to the next **phase** immediately, no user input needed. | 6b, 6c, 8b |
-
-**You must STOP and wait after every phase unless the advance category is `auto`.** Never chain phases together. The user decides when to continue.
+**"spec" trigger:** Any prompt starting with "spec" MUST initiate Phase 1. Treat "spec ..." as equivalent to `/phase-1 ...`. When `multi_worker: true`, spec also auto-runs `/start-story` after Phase 1.
 
 **Story switching (CRITICAL — NEVER auto-switch stories, even with auto-accept):**
-`auto` advance means auto-advance to the next **phase within the same story**. It NEVER means switch to a different story/ticket. When a story is complete (final phase reached, Asana/backlog updated):
+`auto` advance means auto-advance to the next **phase within the same story**. It NEVER means switch to a different story/ticket. When a story is complete:
 1. Output the completion summary
 2. **STOP. END YOUR RESPONSE. Do NOT claim, start, or begin the next story.**
-3. The "Next:" suggestions in completion messages are for the **user to read and type** — they are NOT instructions for you to execute
-4. Wait for the user to explicitly tell you which story to work on next
-5. This rule applies even if there are Ready stories in the backlog — you do NOT pick them up automatically
-6. This rule applies even if auto-accept is enabled — auto-accept controls phase transitions, NEVER story transitions
-
-**Parallel processing (DEFAULT):** When multiple stories exist, batch non-conflicting stories and run them in parallel using worktree-isolated Task subagents. Each agent follows the full SDLC path for its scope. Sequential is the fallback, not the norm. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Parallel Backlog Processing.
-
-**Multi-worker mode:** When `orchestration.multi_worker: true`, multiple workers (humans, AI sessions) advance different stories simultaneously. Each story gets a worktree for all phases. Use `/next STORY-ID` to advance a specific story, `/next --claim` to pick up the next unclaimed story. See [software-development-guidance.md](.sdlc/software-development-guidance.md) § Multi-Worker Protocol.
+3. Wait for the user to explicitly tell you which story to work on next
+4. This rule applies even if auto-accept is enabled — auto-accept controls phase transitions, NEVER story transitions
 
 **Full phase details:** See [software-development-guidance.md](.sdlc/software-development-guidance.md)
-**Agent personas:** See [AGENTS.md](./AGENTS.md)
 
 ---
 
 ## Deliverable Location (REQUIRED)
 
-**All phase deliverables MUST be written to:** \`features/<story-folder>/\`
+**All phase deliverables MUST be written to:** `features/<story-folder>/`
 
-**Folder naming:** \`features/story-XXX-kebab-case-slug/\` where XXX is the story number and slug is derived from the Asana task name.
+**Folder naming:** `features/story-XXX-kebab-case-slug/` where XXX is the story number and slug is derived from the Asana task name.
 
-Example: \`features/story-014-str-automations/seed.md\`
+Example: `features/story-014-str-automations/seed.md`
 
-**NEVER write deliverables to the project root or a \`docs/\` directory.** The \`features/\` directory is the single source of truth for all SDLC artifacts.
+**NEVER write deliverables to the project root or a `docs/` directory.** The `features/` directory is the single source of truth for all SDLC artifacts.
 
-**Multi-worker mode:** When using worktrees, deliverables still go in \`features/<story-folder>/\` within the worktree.
+**Multi-worker mode:** When using worktrees, deliverables still go in `features/<story-folder>/` within the worktree.
 
 ---
 
 ## Phase Deliverables (REQUIRED — every phase MUST produce its file)
 
-All files below are written to \`features/<story-folder>/\`:
+All files below are written to `features/<story-folder>/`:
 
 | Phase | Output File(s) | Scope |
 |-------|---------------|-------|
@@ -94,7 +58,7 @@ All files below are written to \`features/<story-folder>/\`:
 
 **Every phase MUST also update:** `.project`, `backlog.md`, `development-tasks.md`, Asana task (add comment summarizing work)
 
-**A phase is NOT complete until its output file exists in \`features/<story-folder>/\` and tracking docs are updated.**
+**A phase is NOT complete until its output file exists in `features/<story-folder>/` and tracking docs are updated.**
 
 ---
 
@@ -111,21 +75,11 @@ All files below are written to \`features/<story-folder>/\`:
 | 9 (Refinement) | Opus (always) | high |
 | 10 (Operations) | Opus (always) | high |
 
-**Orchestrated phases (sub-agents run in parallel, orchestrator synthesizes):**
-- **2 (Research):** market-scout (Sonnet, low), library-miner (Sonnet, low), field-reporter (Sonnet, low)
-- **3 (Expansion):** pragmatist (Sonnet, medium), futurist (Sonnet, medium), optimizer (Sonnet, medium)
-- **4 (Analysis):** technical (Sonnet, medium), business (Sonnet, medium), risk (Sonnet, medium)
-- **8b (Code Review):** architect (Opus, high), skeptic (Sonnet, medium), simplifier (Sonnet, low), rule-reviewer (Sonnet, low), qa (Sonnet, low, frontend only), browser-tester (Sonnet, medium, frontend only)
-
-**Subagents:** Use Sonnet with `effort: low` for research and review subagents. Use Sonnet with `effort: medium` for complex subagent tasks.
-
 **Model Enforcement (HARD GATE — no exceptions):**
 - Before starting ANY phase work, check: does your current model match the phase's required model?
-- **Opus doing Sonnet work (e.g., Phase 8):** You MUST NOT write implementation code directly. Delegate ALL work to Task subagents with \`model: "sonnet"\`. The Opus agent orchestrates only — dispatches tasks, verifies results, commits code. This prevents ~15x cost overrun.
-- **Sonnet doing Opus work (e.g., Phase 1, 9, 10):** Delegate ALL work to a Task subagent with \`model: "opus"\`. Sonnet orchestrates only — dispatches, verifies, commits. The user should NEVER be asked to manually switch models.
-- **Orchestrated phases (2, 3, 4, 8b):** The orchestrator MUST specify \`model: "sonnet"\` (or \`model: "opus"\` for 8b-architect) on every Task subagent launch. Never inherit the orchestrator's model.
-- **config.yaml override:** If \`models.opus_allowed: true\`, Opus may do Sonnet-default phases directly. This is the ONLY exception.
-- Each agent persona file contains a Model Gate section — read it before starting work.
+- **Opus doing Sonnet work (e.g., Phase 8):** Delegate ALL work to Sonnet subagents. Opus orchestrates only. This prevents ~15x cost overrun.
+- **Sonnet doing Opus work (e.g., Phase 1, 9, 10):** Delegate ALL work to an Opus subagent. Never ask the user to switch models.
+- **config.yaml override:** If `models.opus_allowed: true`, Opus may do Sonnet-default phases directly.
 
 ---
 
@@ -138,8 +92,6 @@ All files below are written to \`features/<story-folder>/\`:
 - Commit after each logical unit in Phase 8
 - Never implement more than one function/endpoint per prompt
 
-**Compaction:** When compacting, always preserve: modified files list, current phase & status, test commands, key file paths, and pending decisions.
-
 **Context groups:** Seed | Research (2,3) | Evaluation (4,5) | Design (6,[6b,6c,6d]) | Test (7) | Implementation (8,8b) | Polish ([9,10])
 
 **After `/clear` — "continue", "next step", or `/next`:**
@@ -149,102 +101,32 @@ All files below are written to \`features/<story-folder>/\`:
 
 ---
 
-## Asana Integration
+## Asana Integration (Claude-specific)
 
-**Project naming:** `sdlc-<directory-name>`
+See [AGENTS.md](./AGENTS.md) § Asana Integration for wrapper policy, script commands, hierarchy, and general Asana rules.
 
-**Sections:** Backlog → Ready → In Progress → E2E Gate → Done | Do Not Do (ignored by agents)
+**Claude-specific MCP Tools:** `asana_search_tasks`, `asana_create_task`, `asana_update_task`, `asana_get_projects`, `asana_get_tasks`
 
-**Epic hierarchy (parent/subtask):**
-- **Epic parent task:** `EPIC: <name>` — top-level task in Asana
-- **Story subtasks:** `[P1] STORY-XXX: <name>` — subtasks of the epic, prefixed with delivery phase
-- **E2E gate stories:** `[E2E] STORY-XXX: <name>` — integration test stories between delivery phases
-- Non-epic stories use the standard `STORY-XXX: <name>` format (no prefix, no parent)
-- Epic stories completing their SDLC move to **E2E Gate** section (not Done) until the E2E gate story passes
-- After E2E gate passes → batch-move stories to Done
-
-**MCP Tools:** `asana_search_tasks`, `asana_create_task`, `asana_update_task`, `asana_get_projects`, `asana_get_tasks`
-
-**Script commands (wrapper required):**
+**Long text arguments (REQUIRED):** For `update-notes` and `comment` with multi-line text, write to a temp file then pipe via stdin with `-` as the text arg:
 ```bash
-cai asana-api.sh get <task_gid>                    # Read task details (name, notes, assignee, status)
-cai asana-api.sh update-name <task_gid> <name>      # Update task name
-cai asana-api.sh update-notes <task_gid> "$(cat /tmp/asana-notes.txt)"  # Write to temp file first
-cai asana-api.sh comment <task_gid> "$(cat /tmp/asana-comment.txt)"    # Write to temp file first
-cai asana-api.sh move <task_gid> <section_gid>      # Move task to section
-cai asana-api.sh complete <task_gid>                # Mark task completed
-cai asana-api.sh create <project_gid> <name> [notes] # Create task
-cai asana-api.sh find-project <name>                # Find project GID by name
-cai asana-api.sh find-section <project_gid> <name>  # Find section GID by name
-cai asana-api.sh create-subtask <parent_gid> <name> [notes] # Create story as subtask of epic
-cai asana-api.sh subtasks <task_gid>                  # List subtasks of a task
-cai asana-api.sh set-parent <task_gid> <parent_gid>   # Make a task a subtask of another
+cat > /tmp/asana-comment.txt << 'COMMENT'
+Phase X completed. Summary...
+COMMENT
+cat /tmp/asana-comment.txt | cai asana-api.sh comment <task_gid> -
 ```
 
-**Long text arguments (REQUIRED):** For \`update-notes\`, \`comment\`, and \`create\` commands with multi-line or special-character text, ALWAYS write the text to a temp file first, then pass via \`$(cat ...)\`. Example: \`cat > /tmp/asana-notes.txt << 'NOTES' ... NOTES\` then \`cai asana-api.sh update-notes <gid> "$(cat /tmp/asana-notes.txt)"\`
-
-**Phase progress tracking:** Every phase transition MUST update the Asana task notes with an SDLC Progress block showing completed/current/remaining phases. See \`/next\` skill § Phase Progress Format.
-
 ---
 
-## Skills
+## Git (Claude-specific)
 
-| Skill | Purpose |
-|-------|---------|
-| `/spec` | SDLC entry point — start Phase 1 for new work |
-| `/new-project` | Full project setup |
-| `/phase-1` | Concept & Seed |
-| `/phase-2` | Research Coordinator |
-| `/phase-3` | Expansion Coordinator |
-| `/phase-4` | Analysis Coordinator |
-| `/phase-5` | Pragmatic Executive |
-| `/phase-6` | Systems Architect |
-| `/phase-6b` | Security Reviewer |
-| `/phase-6c` | UX Review |
-| `/phase-7` | Test Design |
-| `/phase-8` | Implementation |
-| `/phase-8b` | Code Review |
-| `/phase-9` | Refinement |
-| `/phase-10` | Operational Resilience |
-| `/next` | Advance to next phase (auto/confirm/gate) |
-| `/sync-backlog` | Asana → backlog.md |
-| `/start-story` | Begin story work |
-| `/complete-story` | Mark story done |
-| `/council` | LLM Council review |
+See [AGENTS.md](./AGENTS.md) § Git for commit format and check-in commands.
 
----
-
-## Git
-
-**Commit format:** `phase <N>: <description>`
-
-**Feature updates:** `phase <N>: [feature-name] <description>`
-
-**Check-in command (REQUIRED):** `gci-safe "<commit message>"`
-
----
-
-## Tech Stack (Default)
-
-- **Backend:** Python 3.12+, FastAPI, PostgreSQL, SQLAlchemy 2.0, Alembic, Pydantic, PyJWT, pwdlib, pytest
-- **Frontend:** React 19, Vite, TypeScript, Tailwind v4, TanStack Query v5, Zustand v5, Zod v4
-- **Frontend testing:** Playwright (all UI verification). **NEVER use curl/HTTP to check frontend behavior** — curl tests the API, not what users see. If it's user-facing, use Playwright or a browser tool. **Always run headless** (\`headless: true\` in playwright.config.ts). Never use \`--headed\`, \`--debug\`, or \`--ui\` flags.
-- **Test timeouts:** All test runners MUST enforce a 15 s per-test timeout. pytest: \`timeout = 15\` in pyproject.toml (requires \`pytest-timeout\`). Playwright: \`timeout: 15000\` in playwright.config.ts. Vitest: \`testTimeout: 15000\` in vitest.config.ts.
-- **Infra:** Docker, Docker Compose
-
----
-
-## Writing Rules
-
-- Bullets over prose
-- Tables for structured data
-- No filler words
-- Max 3 nesting levels
+**Worktree git commands (REQUIRED):** Always use `git -C <path>` instead of `cd <path> && git ...`. This avoids the compound-command approval prompt triggered by bare repository attack prevention.
 
 ---
 
 ## Reference
 
-- [software-development-guidance.md](.sdlc/software-development-guidance.md) — Full phase details, gates, hooks, lessons learned
-- [AGENTS.md](./AGENTS.md) — Complete agent guidance with examples
+- [AGENTS.md](./AGENTS.md) — Canonical SDLC policy (phase paths, skills, tech stack, advance categories, Asana, git)
+- [software-development-guidance.md](.sdlc/software-development-guidance.md) — Phase details, gates, hooks, lessons learned
 - [templates/](.sdlc/templates/) — File and config templates
