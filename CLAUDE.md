@@ -53,6 +53,7 @@ All files below are written to `features/<story-folder>/`:
 | 7 | `test-design.md` + runnable test code in `tests/`/`e2e/` (RED state) | All |
 | 8 | Implementation code (all tests GREEN) | All |
 | 8b | `code-review.md` | Medium+ |
+| 11 | `predeploy-gate.md` | Medium+ |
 | 9 | `refinement-report.md` | Large/New |
 | 10 | `site-reliability.md` | Large/New |
 
@@ -72,6 +73,7 @@ All files below are written to `features/<story-folder>/`:
 | 7 (Test Design) | Sonnet (default) | medium |
 | 8 (Implementation) | Sonnet (default), Opus requires approval | medium |
 | 8b (Code Review) | Sonnet (default) | medium |
+| 11 (Pre-Deploy Gate) | Sonnet (default) | medium |
 | 9 (Refinement) | Opus (always) | high |
 | 10 (Operations) | Opus (always) | high |
 
@@ -92,7 +94,7 @@ All files below are written to `features/<story-folder>/`:
 - Commit after each logical unit in Phase 8
 - Never implement more than one function/endpoint per prompt
 
-**Context groups:** Seed | Research (2,3) | Evaluation (4,5) | Design (6,[6b,6c,6d]) | Test (7) | Implementation (8,8b) | Polish ([9,10])
+**Context groups:** Seed | Research (2,3) | Evaluation (4,5) | Design (6,[6b,6c,6d]) | Test (7) | Implementation (8,8b) | Deploy (11) | Polish ([9,10])
 
 **After `/clear` — "continue", "next step", or `/next`:**
 1. Read `.project` → Phase Routing section to find current phase and status

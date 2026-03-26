@@ -50,6 +50,7 @@ All files below are written to `features/<story-folder>/`:
 | 7 | `test-design.md` + runnable test code in `tests/`/`e2e/` (RED state) | All |
 | 8 | Implementation code (all tests GREEN) | All |
 | 8b | `code-review.md` | Medium+ |
+| 11 | `predeploy-gate.md` | Medium+ |
 | 9 | `refinement-report.md` | Large/New |
 | 10 | `site-reliability.md` | Large/New |
 
@@ -67,6 +68,7 @@ All files below are written to `features/<story-folder>/`:
 | 7 (Test Design) | Flash (default) | medium |
 | 8 (Implementation) | Flash (default) | medium |
 | 8b (Code Review) | Flash (default) | medium |
+| 11 (Pre-Deploy Gate) | Flash (default) | medium |
 | 9 (Refinement) | Pro (always) | high |
 | 10 (Operations) | Pro (always) | high |
 
@@ -84,7 +86,7 @@ All files below are written to `features/<story-folder>/`:
 - After 2 failed corrections, start a new session with a better prompt
 - Commit after each logical unit in Phase 8
 
-**Context groups:** Seed | Research (2,3) | Evaluation (4,5) | Design (6,[6b,6c,6d]) | Test (7) | Implementation (8,8b) | Polish ([9,10])
+**Context groups:** Seed | Research (2,3) | Evaluation (4,5) | Design (6,[6b,6c,6d]) | Test (7) | Implementation (8,8b) | Deploy (11) | Polish ([9,10])
 
 ---
 
