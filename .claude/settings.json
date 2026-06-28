@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "asana": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-server-asana"],
+      "env": {
+        "ASANA_ACCESS_TOKEN": "${ASANA_ACCESS_TOKEN}"
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(sdlc *)",
+      "Bash(cai *)",
+      "Bash(cai asana-api.sh *)", "mcp__asana__*"
+    ]
+  }
+}
