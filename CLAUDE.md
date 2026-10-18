@@ -9,7 +9,7 @@
 
 See [AGENTS.md](./AGENTS.md) for: phase paths, advance categories, data mutation policy, skills, tech stack, writing rules, and git conventions.
 
-**"spec" trigger:** Any prompt starting with "spec" MUST initiate Phase 1. Treat "spec ..." as equivalent to `/phase-1 ...`. When `multi_worker: true`, spec also auto-runs `/start-story` after Phase 1.
+**"spec" trigger:** Any prompt starting with "spec" MUST initiate Phase 1. Treat "spec ..." as equivalent to `/phase-1 ...`. When `multi_worker: true`, spec drives Phase 1 through `admission.md`, then dispatch. New stories are created only via `spec` (AGENTS.md § 0).
 
 **Story switching (CRITICAL — NEVER auto-switch stories, even with auto-accept):**
 `auto` advance means auto-advance to the next **phase within the same story**. It NEVER means switch to a different story/ticket. When a story is complete:

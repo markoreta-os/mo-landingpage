@@ -1,10 +1,10 @@
 {
   "mcpServers": {
-    "asana": {
+    "monday": {
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-server-asana"],
+      "args": ["-y", "@mondaydotcomorg/monday-api-mcp"],
       "env": {
-        "ASANA_ACCESS_TOKEN": "${ASANA_ACCESS_TOKEN}"
+        "MONDAY_API_TOKEN": "${MONDAY_API_TOKEN}"
       }
     }
   }
